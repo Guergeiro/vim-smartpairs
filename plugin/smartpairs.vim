@@ -105,17 +105,6 @@ function! s:Backspace() abort
   endif
 endfunction
 
-function! s:CarriageReturn() abort
-  let prevchar = getline('.')[col('.') - 2]
-  let nextchar = getline('.')[col('.') - 1]
-
-  if has_key(b:smartpairs_pairs, prevchar) && nextchar == b:smartpairs_pairs[prevchar]
-    return "\<CR>\<C-O>O"
-  else
-    return "\<CR>\<Plug>(smartpairs-old-cr)"
-  endif
-endfunction
-
 " INITIALIZATION
 " ==============================================================================
 function! s:SetUpMappings() abort
@@ -129,27 +118,6 @@ function! s:SetUpMappings() abort
 
   if get(g:, 'smartpairs_hijack_backspace', 1)
     inoremap <expr> <buffer> <silent> <BS> <SID>Backspace()
-  endif
-
-  if get(g:, 'smartpairs_hijack_return', 1)
-    " Here we check for previous mappings to |<CR>|. If found, we try to keep
-    " their functionality as much as possible.
-    "
-    " If the previous mapping starts with |<CR>|, it will remove that part of
-    " the mapping and add it later on. This is because Vim will make an
-    " infinite loop when that's the case.
-    let s:old_cr_mapping = maparg('<CR>', 'i', 0, 1)
-    if s:old_cr_mapping != {}
-      let s:old_cr = s:old_cr_mapping.rhs
-      let s:old_cr = substitute(s:old_cr, '^<CR>', '', 'g')
-      let s:old_cr = substitute(s:old_cr, '<SID>', '<SNR>' . s:old_cr_mapping.sid . '_', 'g')
-      let s:old_cr = substitute(s:old_cr, '<Plug>', '<SNR>' . s:old_cr_mapping.sid . '_', 'g')
-      execute 'imap <buffer> <Plug>(smartpairs-old-cr) ' . s:old_cr
-    else
-      execute 'inoremap <buffer> <Plug>(smartpairs-old-cr) <Nop>'
-    endif
-
-    imap <expr> <buffer> <CR> <SID>CarriageReturn()
   endif
 endfunction
 
