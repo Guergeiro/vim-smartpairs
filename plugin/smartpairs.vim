@@ -16,8 +16,6 @@ let g:smartpairs_default_pairs = {
       \ "'": "'",
       \ }
 let g:smartpairs_pairs = {}
-let g:smartpairs_pairs['vim'] = { '(': ')', '[': ']', '{': '}', "'": "'" }
-let g:smartpairs_pairs['javascript'] = { '(': ')', '[': ']', '{': '}', '"': '"', "'": "'", '`': '`' }
 
 " UTILITY FUNCTIONS
 function! s:IsSpaceOrEmpty(char) abort

@@ -117,7 +117,7 @@ You can customize the pairings based on filetype by setting
 |g:smartpairs_pairs|.
 
                                                              *g:smartpairs_pairs*
-default:~
+example:~
 >
     let g:smartpairs_pairs['vim'] = { '(': ')', '[': ']', '{': '}', "'": "'" }
     let g:smartpairs_pairs['javascript'] = { '(': ')', '[': ']', '{': '}', '"': '"', "'": "'", '`': '`' }
